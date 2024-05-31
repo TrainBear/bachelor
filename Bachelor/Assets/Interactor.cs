@@ -42,9 +42,9 @@ public class Interactor : MonoBehaviour{
 		_interactable = GetInteractableHit();
 
 		// Looks away
-		if (_oldInteractable != _interactable)
+		if ( && _oldInteractable != _interactable)
 		{
-			if (_oldInteractable != null && _oldInteractable is IInteractableEnd oldEndInteractable)
+			if (Input.GetKey(KeyCode.F) && _oldInteractable is IInteractableEnd oldEndInteractable)
 			{
 				oldEndInteractable.InteractEnd();
 			}
