@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class keycardInteract : MonoBehaviour, IInteractableTap{
+public class keycardInteract : MonoBehaviour, IInteractableStart{
     public int keyId;
 
     private AudioSource source;
@@ -16,7 +16,7 @@ public class keycardInteract : MonoBehaviour, IInteractableTap{
         int randomNum = (int)Random.Range(0, interactSounds.Length - 1);
         source.clip = interactSounds[randomNum];
     }
-    public void InteractTap() {
+    public void InteractStart() {
         playerManager.instance.keyIds.Add(keyId);
         
         source.Play();

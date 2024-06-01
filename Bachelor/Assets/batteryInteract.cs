@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class batteryInteract : MonoBehaviour, IInteractableTap{
+public class batteryInteract : MonoBehaviour, IInteractableStart{
     public float batteryRefill;
 
     private AudioSource source;
@@ -16,7 +16,7 @@ public class batteryInteract : MonoBehaviour, IInteractableTap{
         source.clip = interactSounds[randomNum];
     }
 
-    public void InteractTap() {
+    public void InteractStart() {
         playerManager.instance.battery += batteryRefill;
 
         if (playerManager.instance.battery > playerManager.instance.maxBattery) {

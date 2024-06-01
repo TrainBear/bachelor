@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class engineInteract : MonoBehaviour, IInteractableTap{
+public class engineInteract : MonoBehaviour, IInteractableStart{
     public Light pointLight;
 
     public string HoverText
@@ -37,7 +37,7 @@ public class engineInteract : MonoBehaviour, IInteractableTap{
         pointLight.color = new Color(0.789f, 0.035f, 0.035f);
     }
 
-    public void InteractTap(){
+    public void InteractStart(){
         playerManager.instance.machineIdsUsed.AddRange(playerManager.instance.machineIds);
         playerManager.instance.machineIds.Clear();
 

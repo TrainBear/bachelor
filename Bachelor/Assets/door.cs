@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class door : MonoBehaviour, IInteractableTap{
+public class door : MonoBehaviour, IInteractableStart{
     private Transform[] doors = new Transform[2];
     private Transform[] wheels = new Transform[2];
 
@@ -49,7 +49,7 @@ public class door : MonoBehaviour, IInteractableTap{
         }
     }
 
-    public void InteractTap() {
+    public void InteractStart() {
         if (!isUnlocked) {
             if (playerManager.instance.keyIds.Contains(keyId)) {
                 unlockDoor();

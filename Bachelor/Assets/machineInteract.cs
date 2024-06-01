@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class machineInteract : MonoBehaviour, IInteractableTap{
+public class machineInteract : MonoBehaviour, IInteractableStart{
     public int machineId;
     
     private AudioSource source;
@@ -17,7 +17,7 @@ public class machineInteract : MonoBehaviour, IInteractableTap{
         source.clip = interactSounds[randomNum];
     }
     
-    public void InteractTap() {
+    public void InteractStart() {
         playerManager.instance.machineIds.Add(machineId);
         
         source.Play();

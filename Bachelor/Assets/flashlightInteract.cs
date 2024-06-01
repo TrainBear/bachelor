@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class flashlightInteract : MonoBehaviour, IInteractableTap{
+public class flashlightInteract : MonoBehaviour, IInteractableStart{
     public Image battery;
     public GameObject flashLightModel;
     
@@ -19,7 +19,7 @@ public class flashlightInteract : MonoBehaviour, IInteractableTap{
         source.clip = interactSounds[randomNum];
     }
     
-    public void InteractTap() {
+    public void InteractStart() {
         playerManager.instance.hasFlashlight = true;
         battery.enabled = true;
         flashLightModel.SetActive(true);

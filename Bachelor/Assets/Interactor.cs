@@ -1,29 +1,74 @@
-using System;
 using UnityEngine;
 
+/// <summary>
+/// Detectable for interaction, and defines hover text.
+/// </summary>
 interface IInteractable{
+	/// <summary>
+	/// Info text about interaction.
+	/// </summary>
 	public string HoverText { get; }
 }
 
-interface IInteractableTap : IInteractable{
-    public void InteractTap();
+/// <summary>
+/// Reacts to start of interactions.
+/// </summary>
+internal interface IInteractableStart : IInteractable{
+	/// <summary>
+	/// Called the first frame the object is being interacted with.
+	/// </summary>
+    public void InteractStart();
 }
 
-interface IInteractableHold : IInteractable{
+/// <summary>
+/// Reacts to continuous interaction. 
+/// </summary>
+internal interface IInteractableHold : IInteractable{
+	/// <summary>
+	/// Called every frame the object is being interacted with.
+	/// </summary>
 	public void InteractHold();
 }
 
-interface IInteractableEnd : IInteractable{
+/// <summary>
+/// Reacts to interaction end.
+/// </summary>
+internal interface IInteractableEnd : IInteractable{
+	/// <summary>
+	/// Called on last frame of interaction.
+	/// </summary>
 	public void InteractEnd();
 }
 
-public class Interactor : MonoBehaviour{
-	[SerializeField] private float interactRange;
+internal sealed class Interactor : MonoBehaviour{
+	/// <summary>
+	/// How far away can game objects be interacted with. 
+	/// </summary>
+	[SerializeField, Range(0, 10)] private float interactRange;
+	/// <summary>
+	/// Reference to camera for ray-casting.
+	/// </summary>
     [SerializeField] private new Camera camera;
+	/// <summary>
+	/// The key to trigger interaction.
+	/// </summary>
+	[SerializeField] private KeyCode interactKey;
+	/// <summary>
+	/// Delete me :)
+	/// </summary>
     private terminal myTerminal;
+	/// <summary>
+	/// The current object that is able to be interacted with in this frame.
+	/// </summary>
     private IInteractable _interactable;
+	/// <summary>
+	/// The object that was interactable the last frame.
+	/// </summary>
     private IInteractable _oldInteractable;
 
+	/// <summary>
+	/// The current hover text that should be displayed this frame.
+	/// </summary>
     public string HoverText
     {
 	    get
@@ -41,10 +86,11 @@ public class Interactor : MonoBehaviour{
     {
 		_interactable = GetInteractableHit();
 
-		// Looks away
+		// Interaction end (Player looks away)
 		if (_oldInteractable != _interactable)
 		{
-			if (Input.GetKey(KeyCode.F) && _oldInteractable is IInteractableEnd oldEndInteractable)
+			// Player is interacting
+			if (Input.GetKey(interactKey) && _oldInteractable is IInteractableEnd oldEndInteractable)
 			{
 				oldEndInteractable.InteractEnd();
 			}
@@ -56,20 +102,20 @@ public class Interactor : MonoBehaviour{
 		    return;
 	    }
 
-	    // Press down
-	    if (Input.GetKeyDown(KeyCode.F) && _interactable is IInteractableTap tapInteractable)
+	    // Interaction start
+	    if (Input.GetKeyDown(interactKey) && _interactable is IInteractableStart tapInteractable)
 	    {
-		    tapInteractable.InteractTap();
+		    tapInteractable.InteractStart();
 	    }
 
-	    // Holds
-	    if (Input.GetKey(KeyCode.F) && _interactable is IInteractableHold holdInteractable)
+	    // Interaction hold
+	    if (Input.GetKey(interactKey) && _interactable is IInteractableHold holdInteractable)
 	    {
 		    holdInteractable.InteractHold();
 	    }
 	    
-	    // Lets go of key
-	    if (Input.GetKeyUp(KeyCode.F) && _interactable is IInteractableEnd endInteractable)
+	    // Interaction end (Player releases key)
+	    if (Input.GetKeyUp(interactKey) && _interactable is IInteractableEnd endInteractable)
 	    {
 		    endInteractable.InteractEnd();
 	    }
