@@ -1,45 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Detectable for interaction, and defines hover text.
-/// </summary>
-interface IInteractable{
-	/// <summary>
-	/// Info text about interaction.
-	/// </summary>
-	public string HoverText { get; }
-}
-
-/// <summary>
-/// Reacts to start of interactions.
-/// </summary>
-internal interface IInteractableStart : IInteractable{
-	/// <summary>
-	/// Called the first frame the object is being interacted with.
-	/// </summary>
-    public void InteractStart();
-}
-
-/// <summary>
-/// Reacts to continuous interaction. 
-/// </summary>
-internal interface IInteractableHold : IInteractable{
-	/// <summary>
-	/// Called every frame the object is being interacted with.
-	/// </summary>
-	public void InteractHold();
-}
-
-/// <summary>
-/// Reacts to interaction end.
-/// </summary>
-internal interface IInteractableEnd : IInteractable{
-	/// <summary>
-	/// Called on last frame of interaction.
-	/// </summary>
-	public void InteractEnd();
-}
-
 internal sealed class Interactor : MonoBehaviour{
 	/// <summary>
 	/// How far away can game objects be interacted with. 
