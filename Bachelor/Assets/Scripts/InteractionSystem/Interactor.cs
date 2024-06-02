@@ -4,7 +4,7 @@ internal sealed class Interactor : MonoBehaviour{
 	/// <summary>
 	/// How far away can game objects be interacted with. 
 	/// </summary>
-	[SerializeField, Range(0, 10)] private float interactRange;
+	[SerializeField, Range(0, 10)] private float interactRange = 2.5f;
 	/// <summary>
 	/// Reference to camera for ray-casting.
 	/// </summary>
@@ -12,7 +12,7 @@ internal sealed class Interactor : MonoBehaviour{
 	/// <summary>
 	/// The key to trigger interaction.
 	/// </summary>
-	[SerializeField] private KeyCode interactKey;
+	[SerializeField] private KeyCode interactKey = KeyCode.F;
 	/// <summary>
 	/// Delete me :)
 	/// </summary>
